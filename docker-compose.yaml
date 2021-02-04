@@ -1,0 +1,18 @@
+version: "3.7" # 파일 규격 버전
+services: # 이 항목 밑에 실행하려는 컨테이너 들을 정의 ( 컴포즈에서 컨테이너 : 서비스 )
+  db: # 서비스 명
+    image: mysql:latest # 사용할 이미지
+    #restart: always
+    command: --default-authentication-plugin=mysql_native_password
+      --lower_case_table_names=1
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+    container_name: doo-mysql # 컨테이너 이름 설정
+    ports:
+      - "3306:3306" # 접근 포트 설정 (컨테이너 외부:컨테이너 내부)  <- 컨테이너 내부는 무조건 3306
+    environment: # -e 옵션
+      - MYSQL_DATABASE=mysql
+      - MYSQL_ROOT_PASSWORD=ahwl  # MYSQL 패스워드 설정 옵션
+      - TZ=Asia/Seoul
+    volumes:
+      - C:\GLN_prj\private\mysql\data # -v 옵션 (다렉토리 마운트 설정)
